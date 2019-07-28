@@ -8,6 +8,15 @@ fi = chr(9635)
 def check(list_name, x, y): # list_name => 2次元配列
 	# return format => [set_bool, top_bool, right_bool, bottom_bool, left_bool]
 	if list_name[x][y] == lv: # 指定の座標がlvであれば
-		
+		if x == 0:
+			
+		elif x == (len(list_name) - 1):
+			
+		elif y == 0:
+			
+		elif y == (len(list_name) - 1):
+			
+		else:
+			
 	else:
 		return([False, False, False, False, False])
