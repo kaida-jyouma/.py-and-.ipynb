@@ -16,3 +16,18 @@ aminocdn = {
     "GAU": "Asp", "GAC": "Asp", "GAA": "Glu", "GAG": "Glu",
     "GGU": "Gly", "GGC": "Gly", "GGA": "Gly", "GGG": "Gly"
 }
+def splitn(x, num=1):
+    try:
+        int(num)
+    except:
+        return(num)
+    else:
+        return(list(map(str, [x[i: i+int(num)] for i in range(0, len(x), int(num))])))
+    n = []
+    for i in range(len(txt)):
+        n.append(txt[-(i + 1)])
+    if type(txt) == list:
+        return(n)
+    else:
+        return("".join(n))
+    return("".join(n))
