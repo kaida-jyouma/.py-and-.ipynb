@@ -16,6 +16,14 @@ aminocdn = {
     "GAU": "Asp", "GAC": "Asp", "GAA": "Glu", "GAG": "Glu",
     "GGU": "Gly", "GGC": "Gly", "GGA": "Gly", "GGG": "Gly"
 }
+alamin = {
+    'Ala': 'A', 'Cys': 'C', 'Asp': 'D', 'Glu': 'E',
+    'Phe': 'F', 'Gly': 'G', 'His': 'H', 'Ile': 'I',
+    'Lys': 'K', 'Leu': 'L', 'Met': 'M', 'Asn': 'N',
+    'Pro': 'P', 'Gln': 'Q', 'Arg': 'R', 'Ser': 'S',
+    'Thr': 'T', 'Val': 'V', 'Trp': 'W', 'Tyr': 'Y',
+    "END": ""
+}
 def splitn(x, num=1):
     try:
         int(num)
