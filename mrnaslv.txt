@@ -1,0 +1,129 @@
+// use python3.x
+
+def splitn(x, num=1):
+    try:
+        int(num)
+    except:
+        return(num)
+    else:
+        return(list(map(str, [x[i: i+int(num)] for i in range(0, len(x), int(num))])))
+import random as rdm
+def fixchr(letter, capital=False):
+    l = [c for c in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"]
+    if type(letter) != str:
+        return(letter)
+    else:
+        a = l.index(letter) + 26
+        if a > 51 and not capital:
+            a -= 52
+        elif a > 51:
+            a -= 26
+        elif a > 25 and not capital:
+            a -= 26
+    return(l[a])
+def reverce(txt):
+    n = []
+    for i in range(len(txt)):
+        n.append(txt[-(i + 1)])
+    if type(txt) == list:
+        return(n)
+    else:
+        return("".join(n))
+    return("".join(n))
+def pairbase(dna):
+    dnac = ([fixchr(c, True) for c in dna])
+    base = {"A": "T", "T": "A", "G": "C", "C": "G"}
+    for i in range(len(dnac)):
+        if (dnac[i] in base):
+            dnac[i] = base[dnac[i]]
+        else:
+            break
+    return("".join(dnac))
+def exrnamino(rna, rev=False):
+    prot = []
+    aminocdn = {
+        "UUU": "Phe", "UUC": "Phe", "UUA": "Leu", "UUG": "Leu",
+        "UCU": "Ser", "UCC": "Ser", "UCA": "Ser", "UCG": "Ser",
+        "UAU": "Tyr", "UAC": "Tyr", "UAA": "END", "UAG": "END",
+        "UGU": "Cys", "UGC": "Cys", "UGA": "END", "UGG": "Trp",
+        "CUU": "Leu", "CUC": "Leu", "CUA": "Leu", "CUG": "Leu",
+        "CCU": "Pro", "CCC": "Pro", "CCA": "Pro", "CCG": "Pro",
+        "CAU": "His", "CAC": "His", "CAA": "Gln", "CAG": "Gln",
+        "CGU": "Arg", "CGC": "Arg", "CGA": "Arg", "CGG": "Arg",
+        "AUU": "Ile", "AUC": "Ile", "AUA": "Ile", "AUG": "Met",
+        "ACU": "Thr", "ACC": "Thr", "ACA": "Thr", "ACG": "Thr",
+        "AAU": "Asn", "AAC": "Asn", "AAA": "Lys", "AAG": "Lys",
+        "AGU": "Ser", "AGC": "Ser", "AGA": "Arg", "AGG": "Arg",
+        "GUU": "Val", "GUC": "Val", "GUA": "Val", "GUG": "Val",
+        "GCU": "Ala", "GCC": "Ala", "GCA": "Ala", "GCG": "Ala",
+        "GAU": "Asp", "GAC": "Asp", "GAA": "Glu", "GAG": "Glu",
+        "GGU": "Gly", "GGC": "Gly", "GGA": "Gly", "GGG": "Gly"
+    }
+    if not rev:
+        # 開始コドン探す
+        rna = ''.join([fixchr(c, True) for c in rna])
+        b1 = False
+        for i in range(len(rna) - 2):
+            if rna[i:i+3] == "AUG":
+                transl = splitn(rna[i:], 3)
+                b1 = True
+                break
+        if not b1:
+            transl = splitn(rna[0:], 3)
+        for i in transl:
+            prot.append(aminocdn[i])
+            if aminocdn[i] == "END":
+                break
+        return(prot)
+    elif rev:
+        for i in rna:
+            n = [k for k, v in aminocdn.items() if v == i]
+            if len(n) > 1:
+                prot.append(n[rdm.randrange(0, len(n), 1)])
+            else:
+                prot.append(n[0])
+        return(''.join(prot))
+
+def shortamino(aminos, rev=False):
+    alamin = {
+        'Ala': 'A', 'Cys': 'C', 'Asp': 'D', 'Glu': 'E',
+        'Phe': 'F', 'Gly': 'G', 'His': 'H', 'Ile': 'I',
+        'Lys': 'K', 'Leu': 'L', 'Met': 'M', 'Asn': 'N',
+        'Pro': 'P', 'Gln': 'Q', 'Arg': 'R', 'Ser': 'S',
+        'Thr': 'T', 'Val': 'V', 'Trp': 'W', 'Tyr': 'Y',
+        "END": ""
+    }
+    l = []
+    if not rev:
+        for i in aminos:
+            l.append(alamin[i])
+        return(''.join(l))
+    elif rev:
+        aminos = ''.join([fixchr(c, True) for c in aminos])
+        aminos = [c for c in aminos]
+        for i in aminos:
+            l.append([k for k, v in alamin.items() if v == i][0])
+        return(l)
+    return(prot)
+def dnatorna(dna):
+    dna = [c for c in dna]
+    for i in range(len(dna)):
+        if dna[i] == "T":
+            dna[i] = "U"
+    return("".join(dna))
+def repl(string, bf=None, af=None):
+    string = [c for c in str(string)]
+    if bf == None or (type(bf) != str and type(bf) != tuple):
+        bf = string[0]
+    if af == None or (type(af) != str and type(bf) != tuple):
+        af = bf
+    for i in range(len(string)):
+        if string[i] in bf:
+            string[i] = af[bf.index(string[i])]
+    return(''.join(string))
+def join_s(l):
+    return(''.join(l))
+def mkmrna(string):
+    return('AUG' + exrnamino(shortamino(repl(string, ('o', 'u', 'b'), ('q', 'v', 'l')), True), True) + 'UGA')
+def trlrna(string):
+    return(repl(join_s([fixchr(c) for c in (shortamino(exrnamino(string)))]), ('q', 'v', 'l'), ('o', 'u', 'b')))
