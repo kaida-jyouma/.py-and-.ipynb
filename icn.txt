@@ -13,7 +13,7 @@ plt.figure(figsize=(12,12))
 colors = ["deepskyblue", "cyan", "deepskyblue", "springgreen"]
 # colors = ["dodgerblue", "cyan", "dodgerblue", "springgreen"]
 
-width = 0.25
+width = 0.5
 
 plt.tick_params(labelbottom=False,
                 labelleft=False,
