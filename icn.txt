@@ -1,0 +1,77 @@
+#please save with ".py"
+import numpy as np
+import matplotlib.pyplot as plt
+
+# plt.figure(figsize=(5,5))
+# plt.figure(figsize=(8,8))
+plt.figure(figsize=(12,12))
+# plt.figure(figsize=(16,16))
+
+# colors = ["deepskyblue", "orchid", "lawngreen", "orchid"]
+# colors = ["deepskyblue", "lawngreen", "deepskyblue", "orchid"]
+# colors = ["lime", "yellow", "cyan", "yellow"]
+colors = ["deepskyblue", "cyan", "deepskyblue", "springgreen"]
+# colors = ["dodgerblue", "cyan", "dodgerblue", "springgreen"]
+
+width = 0.25
+
+plt.tick_params(labelbottom=False,
+                labelleft=False,
+                labelright=False,
+                labeltop=False)
+plt.tick_params(bottom=False,
+                left=False,
+                right=False,
+                top=False)
+plt.gca().spines['right'].set_visible(False)
+plt.gca().spines['top'].set_visible(False)
+plt.gca().spines['left'].set_visible(False)
+plt.gca().spines['bottom'].set_visible(False)
+
+for i in range(30):
+    if i > 6:
+        theta = np.arange(0, 10*np.pi, 0.001)
+        a = -7.63 + (i - 6) * 0
+        r = np.sin(a*theta) - i
+        x = r * np.cos(theta)
+        y = r * np.sin(theta)
+        plt.plot(x, y, color=colors[i%4], linewidth=width)
+        r = np.cos(a*theta) - i
+        x = r * np.cos(theta)
+        y = r * np.sin(theta)
+        plt.plot(x, y, color=colors[i%4], linewidth=width)
+        
+    elif i == 6:
+        theta = np.arange(0, 10*np.pi, 0.001)
+        a = -7.63 + (i - 6) * 0
+        r = (np.sin(a*theta)/2) - (i+0.5)
+        x = r * np.cos(theta)
+        y = r * np.sin(theta)
+        plt.axes().set_aspect('equal', 'datalim')
+        plt.plot(x, y, color=colors[i%4], linewidth=width)
+
+
+theta = np.arange(0, 10*np.pi, 0.001)
+a = -7.63
+r = np.sin(a*theta) - (i + 1)
+x = r * np.cos(theta)
+y = r * np.sin(theta)
+plt.plot(x, y, color=colors[0], linewidth=width)
+r = np.cos(a*theta) - (i + 1)
+x = r * np.cos(theta)
+y = r * np.sin(theta)
+plt.plot(x, y, color=colors[0], linewidth=width)
+
+theta = np.arange(0, 10*np.pi, 0.001)
+a = -7.63
+r = (np.sin(a*theta)/2) - (i + 1.5)
+x = r * np.cos(theta)
+y = r * np.sin(theta)
+plt.plot(x, y, color=colors[0], linewidth=width)
+
+theta = np.arange(0, 10*np.pi, 0.001)
+a = -np.pi - 0.055
+r = (12 * np.sin(a*theta)/2) - (0)
+x = r * np.cos(theta)
+y = r * np.sin(theta)
+plt.plot(x, y, color=colors[0], linewidth=width) #fin
