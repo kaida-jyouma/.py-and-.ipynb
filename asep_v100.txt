@@ -1,0 +1,104 @@
+"""1次元火災シュミレーション(脱出者カウンター付き)-ASEP"""
+import random as rdm
+import time as tm
+fast = input("fast:")
+move_percent = input("move_percent:")
+def try_exint(aug):
+    try:
+        s = int(aug)
+    except:
+        print("something is wrong...")
+        import sys
+        sys.exit()
+    else:
+        return s
+fast = try_exint(fast)
+move_percent = try_exint(move_percent)
+def move(x, y=0, t = fast, pct=move_percent):
+    l1 = []
+    for i in range(len(x)):
+        if x[i] == lv and (rdm.randrange(0, 99) < pct or i == len(x) - 1):
+            l1.append(i)
+    x.append(nn)
+    for i in l1:
+        if x[i + 1] == nn:
+            x[i + 1] = lv
+            x[i] = nn
+    del(x[-1])
+    if t > 0:
+        if y > t:
+            for i in range(y // fast): # 1コマ毎に延焼(可変: 1, 整数値)
+                x[i] = fi
+    return
+l = []
+lv = chr(9632)
+nn = chr(9633)
+fi = chr(9635)
+dc = 0
+pct = input("lv-percent:")
+pct = try_exint(pct)
+length = input("length:")
+length = try_exint(length)
+if length < 50 and pct < 10:
+    import sys
+    sys.exit("lv-percent is too small. please enter over 10.")
+for i in range(length):
+    rn = rdm.randint(1, 100)
+    if rn <= pct: # 生きたセルの確率(可変: 75, 100分率)
+        rn = lv
+    else:
+        rn = nn
+    l.append(rn)
+bs = l.count(lv)
+# mpct = int(input("move_percent:"))
+print(str(0).zfill(3),"".join(l), str(dc).zfill(2), "|", lv, "=", str(bs).zfill(2))
+ct = 1
+bc = 0
+ac = 0
+rg = dc + bs
+bf_1 = nn
+tx = 1
+outfm = ["".join(l)]
+sign = chr(8592)
+for i in range(20):
+    print("--", end="")
+print()
+print()
+while l.count(lv) != 0:
+    bc = l.count(lv)
+    bf_1 = l[-1]
+    move(l ,ct)
+    ac = l.count(lv)
+    if bf_1 == lv:
+        dc += 1
+    if (dc + l.count(lv)) != rg:
+        # print("\r{}".format(str(tx).zfill(3) + " " + "".join(l) + " " + str(dc).zfill(2) + " | " + lv + " = " + str(l.count(lv)).zfill(2) + " " + sign), end="")
+        print(str(tx).zfill(3) + " " + "".join(l), str(dc).zfill(2), "|", lv, "=", l.count(lv), sign)
+        rg = dc + l.count(lv)
+        # print("".join(l))
+    else:
+        # print("\r{}".format(str(tx).zfill(3) + " " + "".join(l) + " " + str(dc).zfill(2) + " | " + lv + " = " + str(l.count(lv)).zfill(2)), end="")
+        print(str(tx).zfill(3) + " " + "".join(l), str(dc).zfill(2), "|", lv, "=", l.count(lv))
+        # print("".join(l))
+    outfm.append("".join(l))
+    ct += 1
+    tx += 1
+    # tm.sleep(0.5)
+print()
+for i in range(20):
+    print("--", end="")
+print()
+print(" ", end="")
+import math
+print("| beore:", bs, "| safe:", dc, "| die:", bs - dc, "| l:d =>", (dc / math.gcd(dc, (bs - dc))),":", ((bs - dc) / math.gcd(dc, (bs - dc))))
+for i in range(len(outfm)):
+    n = []
+    for j in range(len(outfm[i])):
+        if outfm[i][j] == chr(9632):
+            n.append(1)
+        elif outfm[i][j] == chr(9633):
+            n.append(0)
+        elif outfm[i][j] == chr(9635):
+            n.append(2)
+    outfm[i] = n
+mkim1d(outfm, (math.floor(length/2.5), math.floor(tx/2.5)))
