@@ -1,0 +1,370 @@
+# 2次元CAモデルver1.1.0
+import matplotlib.pyplot as plt
+from google.colab import drive
+from time import sleep
+drive.mount('/content/drive')
+def mkim(ls, ttl=None):
+    # ↓に配列をコピペ
+    # ls = [[0, 3], [1, 3], [1, 5], [1, 7], [1, 9], [1, 10], [2, 3], [2, 5], [2, 7], [2, 9], [2, 10], [2, 11], [3, 3], [3, 5], [3, 7], [3, 9], [3, 10], [4, 3], [4, 5], [4, 7], [4, 9], [4, 11], [5, 3], [5, 5], [5, 7], [5, 9], [5, 11], [6, 3], [6, 5], [6, 7], [6, 9]]
+    lx = ly = []
+    fig = plt.figure(figsize=(6, 4))
+    l1 = [c for c in range(12)]
+    l2 = [c for c in range(7)]
+    plt.tick_params(labelbottom=False,
+                    labelleft=False,
+                    labelright=False,
+                    labeltop=False)
+    plt.tick_params(bottom=False,
+                    left=False,
+                    right=False,
+                    top=False)
+    plt.gca().spines['right'].set_visible(False)
+    plt.gca().spines['top'].set_visible(False)
+    plt.gca().spines['left'].set_visible(False)
+    plt.gca().spines['bottom'].set_visible(False)
+    for i in l1:
+        for j in l2:
+            plt.scatter(i, -j, marker="$□$", s=270, zorder=1, c="#000000")
+    for i in range(len(ls)):
+        if i != (len(ls) - 1):
+            plt.scatter(ls[i][1], -(ls[i][0]), marker="$■$", s=250, zorder=2, c="#000000")
+        else:
+            im = plt.scatter(ls[i][1], -(ls[i][0]), marker="$■$", s=250, zorder=2, c="#000000")
+            if ttl != None:
+                plt.savefig(ttl)
+            return(im)
+def print2d(listname):
+    print("\n".join(list(map(str, listname))))
+    return
+def print2djoin(listname):
+    da = [""]
+    for d1 in listname:
+        for d2 in d1:
+            da.append(d2)
+        da.append("\n")
+    print(" ".join(list(map(str, da))))
+    return("")
+def mkim_fld(arr2d, aspect=(10, 10), ttl=None):
+    import matplotlib.pyplot as plt
+    import numpy as np
+    try:
+        str(arr2d[0][0] + 1)
+    except:
+        import sys
+        sys.exit("The element type must be int, other was found...")
+    else:
+        plt.figure(figsize=aspect)
+        plt.tick_params(labelbottom=False,
+                        labelleft=False,
+                        labelright=False,
+                        labeltop=False)
+        plt.tick_params(bottom=False,
+                        left=False,
+                        right=False,
+                        top=False)
+        plt.gca().spines['right'].set_visible(False)
+        plt.gca().spines['top'].set_visible(False)
+        plt.gca().spines['left'].set_visible(False)
+        plt.gca().spines['bottom'].set_visible(False)
+    im = None
+    for i in range(len(arr2d)):
+        for j in range(len(arr2d[i])):
+            elm = "o"
+            if arr2d[i][j] == 0:
+                elm = chr(9633)
+                col = "black"
+            elif arr2d[i][j] == 1:
+                elm = chr(9632)
+                col = "blue"
+            elif arr2d[i][j] == 2:
+                elm = chr(9632)
+                col = "darkorange"
+            im = plt.plot(j, 0 - i, marker="$"+elm+"$", color=col, markersize=15)
+    if ttl != None:
+        plt.savefig(ttl)
+    return(im)
+def checklv(ln, x, y):
+    if ln[x][y] == lv:
+        return(True)
+    else:
+        return(False)
+def checktop(ln, x, y):
+    if ln[x - 1][y] == nn:
+        return(True)
+    else:
+        return(False)
+def checkbtm(ln, x, y):
+    if ln[x + 1][y] == nn:
+        return(True)
+    else:
+        return(False)
+def checkrit(ln, x, y):
+    if ln[x][y + 1] == nn:
+        return(True)
+    else:
+        return(False)
+def checklft(ln, x, y):
+    if ln[x][y - 1] == nn:
+        return(True)
+    else:
+        return(False)
+def checkul(ln, x, y): #下に行けるかどうか
+    if ln[x + 1][y - 1] == lv:
+        return(False)
+    else:
+        return(True)
+def floor(x):
+    d3 = 0
+    while d3 < x:
+        d3 += 1
+    return(int(d3 - 1))
+cll = [
+       [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+       [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+       [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+       [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+       [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+       [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+       [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0]
+]
+# cll = [
+#        [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0],
+#        [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+#        [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+#        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+#        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+#        [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+#        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
+# ]
+lv = chr(0x25a0)
+nn = chr(0x25a1)
+fi = chr(0x25a3)
+fig = plt.figure(figsize=(int(len(cll[0])/2), int(len(cll)/2)))
+ims = []
+
+ims.append(mkim_fld(cll, (int(len(cll[0])/2), int(len(cll)/2)), ("/content/drive/My Drive/col-imgs/img" + str(0).zfill(3))))
+
+for a in range(len(cll)):
+    for b in range(len(cll[a])):
+        if cll[a][b] == 1:
+            cll[a][b] = lv
+        elif cll[a][b] == 2:
+            cll[a][b] = fi
+        else:
+            cll[a][b] = nn
+
+
+# print2d(cll)
+print2djoin(cll)
+print("--------")
+# x枚表示
+octr = 0
+# ims.append(mkim_fld())
+fire = int(input())
+pct = [1, 0, 1, 2, 2, 1, 0] # 出口までの距離
+for z in range(35):
+    lvlist = []
+    # 延焼
+
+    # # ドア
+    # if cll[1][-1] == lv:
+    #     cll[1][-1] = nn
+    #     octr += 1
+    # if cll[-1][-1] == lv:
+    #     cll[-1][-1] = nn
+    #     octr += 1
+    
+    # 縦スキャン
+    for c in range(len(cll[0])):
+        for d in range(len(cll)):
+            if checklv(cll, d, c): # その座標が生きたセルであれば(比較演算子不要)
+                lvlist.append([d, c])
+
+    # 横スキャン
+    # for c in range(len(cll)):
+    #     for d in range(len(c)):
+    #         if checklv(cll, d, c): # その座標が生きたセルであれば(比較演算子不要)
+    #             lvlist.append([d, c])
+
+    # print(lvlist) # 生存座標の出力
+    # mkim(lvlist)
+    # print2djoin(cll)
+    rit = []
+    btm = []
+    top = []
+    # print(lvlist)
+    # ims.append(mkim(lvlist))
+    for e in lvlist:
+        # フォーマット: [right(0), bottom(1), top(2), left(3)]
+        movel = [None, None, None, None]
+        # ここから条件分岐
+        if e[0] == 0: # 上端
+            movel[2] = False # 上
+            movel[1] = checkbtm(cll, e[0], e[1]) # 下
+            
+            if e[1] == 0: # 左端
+                movel[3] = False # 左
+                movel[0] = checkrit(cll, e[0], e[1]) # 右
+            
+            else:
+                if e[1] == (len(cll[e[0]]) - 1): # 右端
+                    movel[0] = False # 右
+                    movel[3] = checklft(cll, e[0], e[1]) # 左
+                
+                else: # それ以外
+                    movel[0] = checkrit(cll, e[0], e[1]) # 右
+                    movel[3] = checklft(cll, e[0], e[1]) # 左
+            
+            if not checkul(cll, e[0], e[1]):
+                movel[1] = False
+
+
+        elif e[0] == (len(cll) - 1): # 下端
+            movel[1] = False # 下
+            movel[2] = checktop(cll, e[0], e[1]) # 上
+
+            if e[1] == 0: # 左端
+                movel[3] = False # 左
+                movel[0] = checkrit(cll, e[0], e[1]) # 右
+            
+            else:
+                if e[1] == (len(cll[e[0]]) - 1): # 右端
+                    movel[0] = False # 右
+                    movel[3] = checklft(cll, e[0], e[1]) # 左
+                
+                else: # それ以外
+                    movel[0] = checkrit(cll, e[0], e[1]) # 右
+                    movel[3] = checklft(cll, e[0], e[1]) # 左
+
+
+        elif e[1] == 0: # 左端
+            movel[0] = checkrit(cll, e[0], e[1]) # 右
+            movel[1] = checkbtm(cll, e[0], e[1]) # 下
+            movel[2] = checktop(cll, e[0], e[1]) # 上
+            movel[3] = False # 左
+
+
+        elif e[1] == (len(cll[e[0]]) - 1): # 右端
+            movel[0] = False # 右
+            movel[1] = checkbtm(cll, e[0], e[1]) # 下
+            movel[2] = checktop(cll, e[0], e[1]) # 上
+            movel[3] = checklft(cll, e[0], e[1]) # 左
+            if not checkul(cll, e[0], e[1]):
+                movel[1] = False
+                if pct[e[0]] <= pct[e[0] - 1] and movel[2]:
+                    movel[2] = False
+            if movel[1] and movel[2]:
+                # print(pct[e[0] - 1], (pct[e[0]]), (pct[e[0] + 1]))
+                if pct[e[0]] > pct[e[0] - 1] and pct[e[0]] <= pct[e[0] + 1]: # 上のほうが距離近い
+                    movel[1] = False
+                elif pct[e[0]] < pct[e[0] - 1] and pct[e[0]] >= pct[e[0] + 1]: # 下のほうが距離近い
+                    movel[2] = False
+            elif movel[1]:
+                if pct[e[0]] > pct[e[0] - 1] and pct[e[0]] <= pct[e[0] + 1]: # 上のほうが距離近い
+                    movel[1] = False
+            elif movel[2]:
+                if pct[e[0]] < pct[e[0] - 1] and pct[e[0]] >= pct[e[0] + 1]: # 下のほうが距離近い
+                    movel[2] = False
+
+        else:
+            movel[0] = checkrit(cll, e[0], e[1]) # 右
+            movel[1] = checkbtm(cll, e[0], e[1]) # 下
+            movel[2] = checktop(cll, e[0], e[1]) # 上
+            movel[3] = checklft(cll, e[0], e[1]) # 左
+            if not checkul(cll, e[0], e[1]):
+                movel[1] = False
+
+
+        # フォーマット: [right(0), bottom(1), top(2), left(3)]
+        # print("", movel, end=",")
+        # print()
+
+        # 進行方向で条件分岐
+        if movel[0] == True:
+            cll[e[0]][e[1] + 1] = lv
+            cll[e[0]][e[1]] = nn
+        elif movel[1]:
+            cll[e[0] + 1][e[1]] = lv
+            cll[e[0]][e[1]] = nn
+        elif movel[2]:
+            cll[e[0] - 1][e[1]] = lv
+            cll[e[0]][e[1]] = nn
+        # elif movel[3]:
+        #     cll[e[0]][e[1] - 1] = lv
+        #     cll[e[0]][e[1]] = nn
+    # 生存座標作成
+    lvl = []
+    for i in range(len(cll)):
+        for j in range(len(cll[i])):
+            if cll[i][j] == lv:
+                lvl.append([i, j])     
+    # ims.append(mkim(lvl))
+    # print2djoin(cll)
+    # if len(movel) > 0:
+    #     print()
+    #     print('--------')
+
+    n_cll = cll.copy()
+    
+    if (z + 1) % fire == 0:# and z != 0:
+        if ((z + 1) / fire) + 1 <= len(cll):
+            for i in range(int((z+1)/fire) + 1):
+                for j in range(int((z+1)/fire) + 1):
+                    n_cll[i][j] = fi
+        else:
+            if n_cll[-1][-1] == fi:
+                import sys
+                sys.exit("Field burned down...")
+                # continue
+            for i in range(len(cll)):
+                for j in range(len(cll)):
+                    n_cll[i][j] = fi
+            for i in range(int((z+1)/fire) - len(cll) + 1):
+                for j in range(len(cll)):
+                    n_cll[j][len(cll) + i] = fi
+            # if n_cll[-1][-1] == fi:
+            #     # import sys
+            #     # sys.exit("Field burned down...")
+            #     continue
+
+    nmcll = []
+    for i in range(len(n_cll)):
+        klm = []
+        for j in range(len(n_cll[i])):
+            if n_cll[i][j] == nn:
+                klm.append(0)
+            elif n_cll[i][j] == lv:
+                klm.append(1)
+            elif n_cll[i][j] == fi:
+                klm.append(2)
+        nmcll.append(klm)
+    
+    # 出力オプション
+
+    # カラー画像出力はこの下の1行をコメント解除
+    # mkim_fld(nmcll, (int(len(nmcll[0])/2), int(len(nmcll)/2)))
+
+    # カラー画像のドライブへの保存はこの下の1行をコメント解除
+    # mkim_fld(nmcll, (int(len(nmcll[0])/2), int(len(nmcll)/2)), ("/content/drive/My Drive/col-imgs/img" + str(1 * (z + 1) + 0).zfill(3)))
+    
+    # 軽量出力はこの下の1行をコメント解除
+    print(print2djoin(n_cll), "octr:", octr, "\n\n")
+    
+    # -------以下、火災は未対応。--------------------
+    # モノクロ画像出力はこの下の1行をコメント解除
+    # mkim(lvl)
+
+    # モノクロ画像のドライブへの保存はこの下の1行をコメント解除
+    # ims.append(mkim(lvl, ("/content/drive/My Drive/col-imgs/img" + str(z).zfill(3))))
+
+    # ドア
+    if cll[1][-1] == lv:
+        cll[1][-1] = nn
+        octr += 1
+    if cll[-1][-1] == lv:
+        cll[-1][-1] = nn
+        octr += 1
+    sleep(0.05)
+
+# ani = animation.ArtistAnimation(fig, ims)
+# HTML(ani.to_jshtml())
