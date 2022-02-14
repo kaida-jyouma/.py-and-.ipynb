@@ -38,11 +38,11 @@ print()
 
 
 for i in range(least, up + 1):
-    print(fact(i), fact(i)[-1][0])
+    # print(fact(i), fact(i)[-1][0])
     fl = fact(i)
     k = 1 # 仮置き
 
     for j in range(len(fl)):
         k *= (fl[j][0] ** (fl[j][1] + 1) - 1) / (fl[j][0] - 1)
 
-    print(i,fl[-1][0], int(k))
+    print(i, fl[-1][0], int(k))
