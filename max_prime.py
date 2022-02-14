@@ -18,9 +18,26 @@ def fact(n):
 
     return arr
 
-# ここから
-a = int(input())
-for i in range(2, a + 1):
+least = int(input("aの最小値を入力: "))
+if least < 2:
+    import sys
+    sys.exit("最小値は2以上を入力してください")
+up = int(input("aの最大値を入力: "))
+if least >= up:
+    import sys
+    sys.exit("最大値と最小値の差を1以上にしてください")
+
+
+least = int(least)
+up = int(up)
+
+print()
+print("min:", least)
+print("max:", up)
+print()
+
+
+for i in range(least, up + 1):
     print(fact(i), fact(i)[-1][0])
     fl = fact(i)
     k = 1 # 仮置き
